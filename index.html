@@ -26,62 +26,1585 @@
     <div id="map"></div>
 
     <script>
-        var siamese_dummy_info = "<b>Siamese</b>",
-            lao_dummy_info = "<b>Vientiene Lao</b>",
-            khamti_shan_dummy_info = "<b>Khamti Shan</b>",
-            nung_fan_sling_dummy_info = "<b>Nung Fan Sling</b>",
-            tiandeng_zhuang_dummy_info = "<b>Tiānděng Zhuang</b>",
-            jingxi_zhuang_dummy_info = "<b>Jìngxī Zhuang</b>",
-            wangmo_bouyei_dummy_info = "<b>Wàngmó Bouyei</b>",
-            be_dummy_info = "<b>Be</b>",
-            zhanglu_kam_dummy_info = "<b>Zhānglǔ Kam</b>",
-            shidong_kam_dummy_info = "<b> Shídòng Kam</b>",
-            maonan_dummy_info = "<b>Maonan</b>",
-            lakkja_dummy_info = "<b>Lakkja</b>",
-            biao_dummy_info = "<b>Biao</b>",
-            hlai_dummy_info = "<b>Hlai</b>",
-            zoulei_dummy_info = "<b>Zoulei</b>",
-            paha_dummy_info = "<b>Paha</b>",
-            longhaired_lachi_dummy_info = "<b>Long-haired Lachi</b>",
-            langjia_buyang_dummy_info = "<b>Lángjià Buyang</b>";
+        var siamese_poss_info = `<b>Siamese</b><br>
+            <table>
+                <tr>
+                    <td>maː5</td>
+                    <td>khɔːŋ5</td>
+                    <td>chan5</td>
+                </tr>
+                <tr>
+                    <td>dog</td>
+                    <td>POSS</td>
+                    <td>1sg</td>
+                </tr>
+                <tr>
+                    <td colspan="3">My dog</td>
+                </tr>
+            </table>
+            <br>-`,
+            lao_poss_info = `<b>Vientiene Lao</b><br>
+            <table>
+                <tr>
+                    <td>taa3</td>
+                    <td>(khɔɔŋ3)</td>
+                    <td>khɔɔj5</td>
+                </tr>
+                <tr>
+                    <td>eye</td>
+                    <td>(of)</td>
+                    <td>1.sg.p</td>
+                </tr>
+                <tr>
+                    <td colspan="3">my eye(s)</td>
+                </tr>
+            </table>
+            <br>(Enfield, 2007)`,
+            nung_fan_sling_poss_info = `<b>Nung Fan Sling</b><br>
+            <table>
+                <tr>
+                    <td>mưhn</td>
+                    <td>tóhc</td>
+                    <td>hông</td>
+                    <td>slứ</td>
+                    <td>pị-bạo</td>
+                </tr>
+                <tr>
+                    <td>he</td>
+                    <td>lose</td>
+                    <td>CLF</td>
+                    <td>shirt</td>
+                    <td>older.brother</td>
+                </tr>
+                <tr>
+                    <td colspan="5">He lost his older brother's shirt.</td>
+                </tr>
+            </table>
+            <br>(Saul & Wilson, 1980)`,
+            tiandeng_zhuang_poss_info = `<b>Tiānděng Zhuang</b><br>
+            <table>
+                <tr>
+                    <td>ca:w3</td>
+                    <td>ŋo2</td>
+                </tr>
+                <tr>
+                    <td>rice.basket</td>
+                    <td>1sg</td>
+                </tr>
+                <tr>
+                    <td colspan="2">my rice basket</td>
+                </tr>
+            </table>
+            <br>(Langella, 2012)`,
+            jingxi_zhuang_poss_info = `<b>Jìngxī Zhuang</b><br>
+            <table>
+                <tr>
+                    <td>an1</td>
+                    <td>moŋ2</td>
+                    <td>ni5</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>hands</td>
+                    <td>2.sg</td>
+                </tr>
+                <tr>
+                    <td colspan="3">Your hands</td>
+                </tr>
+            </table>
+            <br>(Y.-Q. Zheng, 1996)`,
+            wangmo_bouyei_poss_info = `<b>Wàngmó Bouyei</b><br>
+            <table>
+                <tr>
+                    <td>kaːj3kɯn1</td>
+                    <td>phin6</td>
+                </tr>
+                <tr>
+                    <td>food</td>
+                    <td>Ping</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Ping's food</td>
+                </tr>
+            </table>
+            <br>(Boonsawasd, 2012)`,
+            be_poss_info = `<b>Be</b><br>
+            <table>
+                <tr>
+                    <td>na3</td>
+                    <td>kə2</td>
+                    <td>mɔʔ8</td>
+                </tr>
+                <tr>
+                    <td>face</td>
+                    <td>3.sg</td>
+                    <td>CLF</td>
+                </tr>
+                <tr>
+                    <td colspan="3">his face</td>
+                </tr>
+            </table>
+            <br>(Liang and J.-R. Zhang, 1997)`,
+            zhanglu_kam_poss_info = `<b>Zhānglǔ Kam</b><br>
+            <table>
+                <tr>
+                    <td>le212</td>
+                    <td>ȶiu55</td>
+                </tr>
+                <tr>
+                    <td>book</td>
+                    <td>1p</td>
+                </tr>
+                <tr>
+                    <td colspan="2">our book</td>
+                </tr>
+            </table>
+            <br>(Long & G.-Q. Zheng, 1998)`,
+            shidong_kam_poss_info = `<b>Shídòng Kam</b><br>
+            <table>
+                <tr>
+                    <td>mau44</td>
+                    <td>ko33</td>
+                </tr>
+                <tr>
+                    <td>3s</td>
+                    <td>older.brother</td>
+                </tr>
+                <tr>
+                    <td colspan="2">his older brother</td>
+                </tr>
+            </table>
+            <br>(Long & G.-Q. Zheng, 1998)`,
+            maonan_poss_info = `<b>Maonan</b><br>
+            <table>
+                <tr>
+                    <td>ɦe2</td>
+                    <td>dɔ2</td>
+                    <td>mu5</td>
+                    <td>ˀni5</td>
+                    <td>ka5</td>
+                </tr>
+                <tr>
+                    <td>1.sg</td>
+                    <td>CLF</td>
+                    <td>pig</td>
+                    <td>small</td>
+                    <td>that</td>
+                </tr>
+                <tr>
+                    <td colspan="5">The small pig of mine</td>
+                </tr>
+            </table>
 
-        var siamese_dummy = L.shapeMarker([13.7525, 100.494167], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(siamese_dummy_info),
-            lao_dummy = L.shapeMarker([17.98, 102.63], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(lao_dummy_info),
-            khamti_shan_dummy = L.shapeMarker([26.996389, 93.896944], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(khamti_shan_dummy_info),
-            nung_fan_sling_dummy = L.shapeMarker([21.56918103, 106.4781831], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(nung_fan_sling_dummy_info),
-            tiandeng_zhuang_dummy = L.shapeMarker([23.09357646, 107.1338332], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(tiandeng_zhuang_dummy_info),
-            jingxi_zhuang_dummy = L.shapeMarker([23.14537851, 106.4116256], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(jingxi_zhuang_dummy_info),
-            wangmo_bouyei_dummy = L.shapeMarker([25.17846438, 106.099372], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(wangmo_bouyei_dummy_info),
-            be_dummy = L.shapeMarker([19.747022, 110.080959], {shape: 'square', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(be_dummy_info),
-            zhanglu_kam_dummy = L.shapeMarker([25.96965345, 108.53824], {shape: 'triangle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(zhanglu_kam_dummy_info),
-            shidong_kam_dummy = L.shapeMarker([26.77979501, 109.0358971], {shape: 'triangle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(shidong_kam_dummy_info),
-            maonan_dummy = L.shapeMarker([24.833333, 108.25], {shape: 'triangle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(maonan_dummy_info),
-            lakkja_dummy = L.shapeMarker([24.40739883, 110.298179], {shape: 'triangle-down', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(lakkja_dummy_info),
-            biao_dummy = L.shapeMarker([23.65867011, 112.0701047], {shape: 'triangle-down', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(biao_dummy_info),
-            hlai_dummy = L.shapeMarker([19.10500024, 108.7064786], {shape: 'diamond', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(hlai_dummy_info),
-            zoulei_dummy = L.shapeMarker([26.14761928, 105.6114029], {shape: 'star', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(zoulei_dummy_info),
-            paha_dummy = L.shapeMarker([24.35154074, 104.9130283], {shape: 'star', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(paha_dummy_info),
-            longhaired_lachi_dummy = L.shapeMarker([22.79408216, 104.5822797], {shape: 'star', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(longhaired_lachi_dummy_info),
-            langjia_buyang_dummy = L.shapeMarker([23.57427689, 106.012076], {shape: 'star', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(langjia_buyang_dummy_info);
+            <table>
+                <tr>
+                    <td>dɔ2</td>
+                    <td>mu5</td>
+                    <td>ˀni5</td>
+                    <td>ka5</td>
+                    <td>ɦe2</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>pig</td>
+                    <td>small</td>
+                    <td>that</td>
+                    <td>1.sg</td>
+                </tr>
+                <tr>
+                    <td colspan="5">The small pig of mine</td>
+                </tr>
+            </table>
+            <br>(Lu, 2008)`,
+            lakkja_poss_info = `<b>Lakkja</b><br>
+            <table>
+                <tr>
+                    <td>thu214sɛu51kuɑn51</td>
+                    <td>kɑ11</td>
+                    <td>sɛu51</td>
+                </tr>
+                <tr>
+                    <td>library</td>
+                    <td>POSS</td>
+                    <td>book</td>
+                </tr>
+                <tr>
+                    <td colspan="3">a library book</td>
+                </tr>
+            </table>
+            <br>(Lan, 2011)`,
+            biao_poss_info = `<b>Biao</b><br>
+            <table>
+                <tr>
+                    <td>man2</td>
+                    <td>a1ku4</td>
+                </tr>
+                <tr>
+                    <td>his</td>
+                    <td>uncle</td>
+                </tr>
+                <tr>
+                    <td colspan="2">his uncle</td>
+                </tr>
+            </table>
+            <br>(Liang and J.-R. Zhang, 2001)`,
+            hlai_poss_info = `<b>Hlai</b><br>
+            <table>
+                <tr>
+                    <td>pai3guːŋ1</td>
+                    <td>hou1</td>
+                </tr>
+                <tr>
+                    <td>sister</td>
+                    <td>my</td>
+                </tr>
+                <tr>
+                    <td colspan="2">My sister</td>
+                </tr>
+            </table>
+            <br>(Ouyang & Y.-Q. Zheng, 1983)`,
+            zoulei_poss_info = `<b>Zoulei</b><br>
+            <table>
+                <tr>
+                    <td>ma³¹zu³¹</td>
+                    <td>ve¹³</td>
+                </tr>
+                <tr>
+                    <td>y.brother</td>
+                    <td>3sg</td>
+                </tr>
+                <tr>
+                    <td colspan="2">his younger brother</td>
+                </tr>
+            </table>
+            <br>(X. Li et al., 2014)`,
+            paha_poss_info = `<b>Paha</b><br>
+            <table>
+                <tr>
+                    <td>də³²²ma³¹</td>
+                    <td>kɔŋ⁴⁵⁽³³⁾</td>
+                    <td>ku³³⁽³²²⁾</td>
+                </tr>
+                <tr>
+                    <td>dog</td>
+                    <td>POSS</td>
+                    <td>1sg</td>
+                </tr>
+                <tr>
+                    <td colspan="3">My dog</td>
+                </tr>
+            </table>
+            <br>(J.-F. Li & Y.-X. Luo, 2010)`,
+            longhaired_lachi_poss_info = `<b>Long-haired Lachi</b><br><br>(Kosaka, 2000)`,
+            flowery_lachi_poss_info = `<b>Flowery Lachi</b><br>
+            <table>
+                <tr>
+                    <td>kho55</td>
+                    <td>ki55</td>
+                </tr>
+                <tr>
+                    <td>house</td>
+                    <td>my</td>
+                </tr>
+                <tr>
+                    <td colspan="2">My house</td>
+                </tr>
+            </table>
+            <br>(Y.-B. Li, 2000)`,
+            langjia_buyang_poss_info = `<b>Lángjià Buyang</b><br>
+            <table>
+                <tr>
+                    <td>tu2</td>
+                    <td>ma1</td>
+                    <td>kou1</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>dog</td>
+                    <td>1.sg</td>
+                </tr>
+                <tr>
+                    <td colspan="3">My dog</td>
+                </tr>
+            </table>
+            <br>(J.-F. Li, 1999)`;
 
-        var langs = L.layerGroup([siamese_dummy, lao_dummy, khamti_shan_dummy, nung_fan_sling_dummy, tiandeng_zhuang_dummy, jingxi_zhuang_dummy, wangmo_bouyei_dummy, be_dummy, zhanglu_kam_dummy, shidong_kam_dummy, maonan_dummy, lakkja_dummy, biao_dummy, hlai_dummy, zoulei_dummy, paha_dummy, longhaired_lachi_dummy, langjia_buyang_dummy]);
+        var siamese_poss = L.shapeMarker([13.7525, 100.494167], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(siamese_poss_info),
+            lao_poss = L.shapeMarker([17.98, 102.63], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(lao_poss_info),
+            nung_fan_sling_poss = L.shapeMarker([21.56918103, 106.4781831], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(nung_fan_sling_poss_info),
+            tiandeng_zhuang_poss = L.shapeMarker([23.09357646, 107.1338332], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(tiandeng_zhuang_poss_info),
+            jingxi_zhuang_poss = L.shapeMarker([23.14537851, 106.4116256], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(jingxi_zhuang_poss_info),
+            wangmo_bouyei_poss = L.shapeMarker([25.17846438, 106.099372], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(wangmo_bouyei_poss_info),
+            be_poss = L.shapeMarker([19.747022, 110.080959], {shape: 'square', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(be_poss_info),
+            zhanglu_kam_poss = L.shapeMarker([25.96965345, 108.53824], {shape: 'triangle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zhanglu_kam_poss_info),
+            shidong_kam_poss = L.shapeMarker([26.77979501, 109.0358971], {shape: 'triangle', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(shidong_kam_poss_info),
+            maonan_poss = L.shapeMarker([24.833333, 108.25], {shape: 'triangle', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(maonan_poss_info),
+            lakkja_poss = L.shapeMarker([24.40739883, 110.298179], {shape: 'triangle-down', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(lakkja_poss_info),
+            biao_poss = L.shapeMarker([23.65867011, 112.0701047], {shape: 'triangle-down', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(biao_poss_info),
+            hlai_poss = L.shapeMarker([19.10500024, 108.7064786], {shape: 'diamond', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(hlai_poss_info),
+            zoulei_poss = L.shapeMarker([26.14761928, 105.6114029], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zoulei_poss_info),
+            paha_poss = L.shapeMarker([24.35154074, 104.9130283], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(paha_poss_info),
+            flowery_lachi_poss = L.shapeMarker([22.77341847, 104.4611953], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(flowery_lachi_poss_info),
+            langjia_buyang_poss = L.shapeMarker([23.57427689, 106.012076], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(langjia_buyang_poss_info);
+ 
+        var poss = L.layerGroup([siamese_poss, lao_poss, nung_fan_sling_poss, tiandeng_zhuang_poss, jingxi_zhuang_poss, wangmo_bouyei_poss, be_poss, zhanglu_kam_poss, shidong_kam_poss, maonan_poss, lakkja_poss, biao_poss, hlai_poss, zoulei_poss, paha_poss, flowery_lachi_poss, langjia_buyang_poss]);
+        
+        var siamese_rel_info = `<b>Siamese</b><br>
+            <table>
+                <tr>
+                    <td>phuː3chaːj1</td>
+                    <td>khon1</td>
+                    <td>thiː3</td>
+                    <td>say2</td>
+                    <td>sɯa3</td>
+                    <td>siː5</td>
+                    <td>dɛːŋ1</td>
+                </tr>
+                <tr>
+                    <td>man</td>
+                    <td>CLF</td>
+                    <td>REL</td>
+                    <td>wear</td>
+                    <td>clothes</td>
+                    <td>color</td>
+                    <td>red</td>
+                </tr>
+                <tr>
+                    <td colspan="7">The man who is wearing red clothes</td>
+                </tr>
+            </table>
+            <br>-`,
+            lao_rel_info = `<b>Vientiene Lao</b><br>
+            <table>
+                <tr>
+                    <td>kaj1</td>
+                    <td>thii1</td>
+                    <td>ʔaaj4</td>
+                    <td>khɔɔj5</td>
+                    <td>khaa5</td>
+                </tr>
+                <tr>
+                    <td>chicken</td>
+                    <td>REL</td>
+                    <td>elder.brother</td>
+                    <td>1.sg.p</td>
+                    <td>kill</td>
+                </tr>
+                <tr>
+                    <td colspan="5">the chicken which my brother killed</td>
+                </tr>
+            </table>
+            <br>(Enfield, 2007)`,
+            nung_fan_sling_rel_info = `<b>Nung Fan Sling</b><br>
+            <table>
+                <tr>
+                    <td>kề</td>
+                    <td>ti-va</td>
+                    <td>tóhc</td>
+                    <td>cộn</td>
+                    <td>thihn</td>
+                </tr>
+                <tr>
+                    <td>man</td>
+                    <td>who</td>
+                    <td>lost</td>
+                    <td>CLF</td>
+                    <td>stone</td>
+                </tr>
+                <tr>
+                    <td colspan="5">The man who had lost the stone</td>
+                </tr>
+            </table>
+            <br>(Saul & Wilson, 1980)`,
+            tiandeng_zhuang_rel_info = `<b>Tiānděng Zhuang</b><br>
+            <table>
+                <tr>
+                    <td>ca:w3</td>
+                    <td>ni2</td>
+                    <td>θa:n4</td>
+                </tr>
+                <tr>
+                    <td>rice.basket</td>
+                    <td>2sg</td>
+                    <td>weave</td>
+                </tr>
+                <tr>
+                    <td colspan="3">the basket you wove</td>
+                </tr>
+            </table>
+            <br>(Langella, 2012)`,
+            jingxi_zhuang_rel_info = `<b>Jìngxī Zhuang</b><br>
+            <table>
+                <tr>
+                    <td>kaːi5</td>
+                    <td>te1</td>
+                    <td>θei4</td>
+                    <td>ni5</td>
+                </tr>
+                <tr>
+                    <td>that.thing</td>
+                    <td>3.sg</td>
+                    <td>buy</td>
+                    <td>ptcl</td>
+                </tr>
+                <tr>
+                    <td colspan="4">The thing that he bought</td>
+                </tr>
+            </table>
+            <br>(Y.-Q. Zheng, 1996)`,
+            wangmo_bouyei_rel_info = `<b>Wàngmó Bouyei</b><br>
+            <table>
+                <tr>
+                    <td>kaːj3ne6</td>
+                    <td>tɯk4</td>
+                    <td>ˀdan1zaːn2</td>
+                    <td>li6</td>
+                    <td>ɲew1zaːn2</td>
+                    <td>ziaŋ2</td>
+                    <td>ɕiaŋ2</td>
+                </tr>
+                <tr>
+                    <td>This</td>
+                    <td>be</td>
+                    <td>house</td>
+                    <td>have</td>
+                    <td>roof</td>
+                    <td>and</td>
+                    <td>wall</td>
+                </tr>
+                <tr>
+                    <td colspan="7">This is the house that has a roof and walls.</td>
+                </tr>
+            </table>
+            <br>(Boonsawasd, 2012)`,
+            be_rel_info = `<b>Be</b><br>
+            <table>
+                <tr>
+                    <td>lap7</td>
+                    <td>lap7</td>
+                    <td>nə4</td>
+                    <td>hu2</td>
+                    <td>hə3</td>
+                </tr>
+                <tr>
+                    <td>lay</td>
+                    <td>lay</td>
+                    <td>DET</td>
+                    <td>CLF</td>
+                    <td>one</td>
+                </tr>
+                <tr>
+                    <td colspan="5">that one which laying down</td>
+                </tr>
+            </table>
 
-        var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            <table>
+                <tr>
+                    <td>lan2</td>
+                    <td>luŋ1</td>
+                </tr>
+                <tr>
+                    <td>room</td>
+                    <td>above</td>
+                </tr>
+                <tr>
+                    <td colspan="2">the room that is above</td>
+                </tr>
+            </table>
+            <br>(Liang and J.-R. Zhang, 1997)`,
+            zhanglu_kam_rel_info = `<b>Zhānglǔ Kam</b><br>
+            <table>
+                <tr>
+                    <td>lak31</td>
+                    <td>saŋ31</td>
+                    <td>tu212</td>
+                </tr>
+                <tr>
+                    <td>child</td>
+                    <td>raise</td>
+                    <td>ox</td>
+                </tr>
+                <tr>
+                    <td colspan="3">child who takes care of oxen</td>
+                </tr>
+            </table>
+            <br>(Long & G.-Q. Zheng, 1998)`,
+            shidong_kam_rel_info = `<b>Shídòng Kam</b><br><br>(Long & G.-Q. Zheng, 1998)`,
+            maonan_rel_info = `<b>Maonan</b><br>
+            <table>
+                <tr>
+                    <td>ɦe2</td>
+                    <td>maŋ4</td>
+                    <td>ti5</td>
+                    <td>zən1</td>
+                </tr>
+                <tr>
+                    <td>1.sg</td>
+                    <td>like</td>
+                    <td>PART</td>
+                    <td>person</td>
+                </tr>
+                <tr>
+                    <td colspan="4">the one who I like</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td>ˀdatˁ</td>
+                    <td>jan1</td>
+                    <td>se1</td>
+                    <td>ȵaːu6</td>
+                    <td>ka</td>
+                    <td>ˀni5</td>
+                    <td>paːi1</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>house</td>
+                    <td>2.pl</td>
+                    <td>live</td>
+                    <td>that</td>
+                    <td>small</td>
+                    <td>go</td>
+                </tr>
+                <tr>
+                    <td colspan="7">The house where they live is too small </td>
+                </tr>
+            </table>
+            <br>(Lu, 2008)`,
+            lakkja_rel_info = `<b>Lakkja</b><br>
+            <table>
+                <tr>
+                    <td>wɑn231njam11</td>
+                    <td>mɑ231</td>
+                    <td>wei55</td>
+                    <td>kɑ11</td>
+                    <td>lɑk24</td>
+                    <td>njũn231</td>
+                    <td>ŋɑn231</td>
+                    <td>pɑi51</td>
+                    <td>lieːu24</td>
+                </tr>
+                <tr>
+                    <td>yesterday</td>
+                    <td>2sg</td>
+                    <td>see</td>
+                    <td>PART</td>
+                    <td>CLF</td>
+                    <td>person</td>
+                    <td>that</td>
+                    <td>go</td>
+                    <td>PART</td>
+                </tr>
+                <tr>
+                    <td colspan="9">That person you saw yesterday has left.</td>
+                </tr>
+            </table>
+            <br>(Lan, 2011)`,
+            biao_rel_info = `<b>Biao</b><br>
+            <table>
+                <tr>
+                    <td>an1</td>
+                    <td>θœŋ1</td>
+                    <td>kɛ6</td>
+                    <td>muk8</td>
+                </tr>
+                <tr>
+                    <td>very</td>
+                    <td>high</td>
+                    <td>PTCL</td>
+                    <td>tree</td>
+                </tr>
+                <tr>
+                    <td colspan="4">the tree that is very high</td>
+                </tr>
+            </table>
+            <br>(Liang and J.-R. Zhang, 2001)`,
+            hlai_rel_info = `<b>Hlai</b><br>
+            <table>
+                <tr>
+                    <td>ʔeȵ2</td>
+                    <td>veːŋ3</td>
+                </tr>
+                <tr>
+                    <td>little</td>
+                    <td>top.clothes</td>
+                </tr>
+                <tr>
+                    <td colspan="2">little clothes</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td>veːŋ3</td>
+                    <td>piːn1</td>
+                </tr>
+                <tr>
+                    <td>cloth</td>
+                    <td>linen</td>
+                </tr>
+                <tr>
+                    <td colspan="2">linen cloth</td>
+                </tr>
+            </table>
+            <br>(Ouyang & Y.-Q. Zheng, 1983)`,
+            zoulei_rel_info = `<b>Zoulei</b><br>
+            <table>
+                <tr>
+                    <td>pu55?la31</td>
+                    <td>mie33</td>
+                    <td>sa55</td>
+                    <td>jara31</td>
+                    <td>zaui31</td>
+                </tr>
+                <tr>
+                    <td>mister</td>
+                    <td>REL</td>
+                    <td>can</td>
+                    <td>calculate</td>
+                    <td>man</td>
+                </tr>
+                <tr>
+                    <td colspan="5">a gentleman who is a fortune teller</td>
+                </tr>
+            </table>
+            <br>(X. Li et al., 2014)`,
+            paha_rel_info = `<b>Paha</b><br><br>(J.-F. Li & Y.-X. Luo, 2010)`,
+            longhaired_lachi_rel_info = `<b>Long-haired Lachi</b><br>
+            <table>
+                <tr>
+                    <td>tja43</td>
+                    <td>labjo22</td>
+                    <td>ke43</td>
+                    <td>no22</td>
+                </tr>
+                <tr>
+                    <td>eld.brother</td>
+                    <td>that</td>
+                    <td>to.be</td>
+                    <td>who</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Who is that man?</td>
+                </tr>
+            </table>
+            <br>(Kosaka, 2000)`,
+            flowery_lachi_rel_info = `<b>Flowery Lachi</b><br>
+            <table>
+                <tr>
+                    <td>n44tei53</td>
+                    <td>pi44</td>
+                </tr>
+                <tr>
+                    <td>corn</td>
+                    <td>grilled</td>
+                </tr>
+                <tr>
+                    <td colspan="2">the grilled corn</td>
+                </tr>
+            </table>
+            <br>(Y.-B. Li, 2000)`,
+            langjia_buyang_rel_info = `<b>Lángjià Buyang</b><br>
+            <table>
+                <tr>
+                    <td>ma0iŋ31</td>
+                    <td>kwaːi33</td>
+                </tr>
+                <tr>
+                    <td>person</td>
+                    <td>clever</td>
+                </tr>
+                <tr>
+                    <td colspan="2">the smart person</td>
+                </tr>
+            </table>
+            <br>(J.-F. Li, 1999)`;
+        
+        var siamese_rel = L.shapeMarker([13.7525, 100.494167], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(siamese_rel_info),
+            lao_rel = L.shapeMarker([17.98, 102.63], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(lao_rel_info),
+            nung_fan_sling_rel = L.shapeMarker([21.56918103, 106.4781831], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(nung_fan_sling_rel_info),
+            tiandeng_zhuang_rel = L.shapeMarker([23.09357646, 107.1338332], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(tiandeng_zhuang_rel_info),
+            jingxi_zhuang_rel = L.shapeMarker([23.14537851, 106.4116256], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(jingxi_zhuang_rel_info),
+            wangmo_bouyei_rel = L.shapeMarker([25.17846438, 106.099372], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(wangmo_bouyei_rel_info),
+            be_rel = L.shapeMarker([19.747022, 110.080959], {shape: 'square', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(be_rel_info),
+            zhanglu_kam_rel = L.shapeMarker([25.96965345, 108.53824], {shape: 'triangle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zhanglu_kam_rel_info),
+            shidong_kam_rel = L.shapeMarker([26.77979501, 109.0358971], {shape: 'triangle', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(shidong_kam_rel_info),
+            maonan_rel = L.shapeMarker([24.833333, 108.25], {shape: 'triangle', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(maonan_rel_info),
+            lakkja_rel = L.shapeMarker([24.40739883, 110.298179], {shape: 'triangle-down', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(lakkja_rel_info),
+            biao_rel = L.shapeMarker([23.65867011, 112.0701047], {shape: 'triangle-down', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(biao_rel_info),
+            hlai_rel = L.shapeMarker([19.10500024, 108.7064786], {shape: 'diamond', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(hlai_rel_info),
+            zoulei_rel = L.shapeMarker([26.14761928, 105.6114029], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zoulei_rel_info),
+            paha_rel = L.shapeMarker([24.35154074, 104.9130283], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(paha_rel_info),
+            longhaired_lachi_rel = L.shapeMarker([22.79408216, 104.5822797], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(longhaired_lachi_rel_info),
+            flowery_lachi_rel = L.shapeMarker([22.77341847, 104.4611953], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(flowery_lachi_rel_info),
+            langjia_buyang_rel = L.shapeMarker([23.57427689, 106.012076], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(langjia_buyang_rel_info);
+
+        var rel = L.layerGroup([siamese_rel, lao_rel, nung_fan_sling_rel, tiandeng_zhuang_rel, jingxi_zhuang_rel, wangmo_bouyei_rel, be_rel, zhanglu_kam_rel, shidong_kam_rel, maonan_rel, lakkja_rel, biao_rel, hlai_rel, zoulei_rel, paha_rel, longhaired_lachi_rel, flowery_lachi_rel, langjia_buyang_rel]);
+
+        var siamese_pp_info = `<b>Siamese</b><br>
+            <table>
+                <tr>
+                    <td>maː5</td>
+                    <td>naj1</td>
+                    <td>baan3</td>
+                    <td>chan5</td>
+                </tr>
+                <tr>
+                    <td>dog</td>
+                    <td>in</td>
+                    <td>house</td>
+                    <td>1sg</td>
+                </tr>
+                <tr>
+                    <td colspan="4">A dog in my house</td>
+                </tr>
+            </table>
+            <br>-`,
+            lao_pp_info = `<b>Vientiene Lao</b><br>
+            <table>
+                <tr>
+                    <td>nam4</td>
+                    <td>naj2</td>
+                    <td>mɔɔ5</td>
+                    <td>nii4</td>
+                </tr>
+                <tr>
+                    <td>water</td>
+                    <td>inside</td>
+                    <td>pot</td>
+                    <td>this</td>
+                </tr>
+                <tr>
+                    <td colspan="4">water in this pot</td>
+                </tr>
+            </table>
+            <br>(Enfield, 2007)`,
+            nung_fan_sling_pp_info = `<b>Nung Fan Sling</b><br>
+            <table>
+                <tr>
+                    <td>pị</td>
+                    <td>nồng</td>
+                    <td>nứ</td>
+                    <td>bàn</td>
+                    <td>hảu</td>
+                </tr>
+                <tr>
+                    <td>older</td>
+                    <td>younger</td>
+                    <td>inside</td>
+                    <td>village</td>
+                    <td>their</td>
+                </tr>
+                <tr>
+                    <td colspan="5">the brethren in their village </td>
+                </tr>
+            </table>
+            <br>(Saul & Wilson, 1980)`,
+            tiandeng_zhuang_pp_info = `<b>Tiānděng Zhuang</b><br><br>(Langella, 2012)`,
+            jingxi_zhuang_pp_info = `<b>Jìngxī Zhuang</b><br>
+            <table>
+                <tr>
+                    <td>te1</td>
+                    <td>thaŋ1</td>
+                    <td>pə2kjəŋ5</td>
+                    <td>ma2</td>
+                </tr>
+                <tr>
+                    <td>3.sg</td>
+                    <td>PREP</td>
+                    <td>Peking</td>
+                    <td>come</td>
+                </tr>
+                <tr>
+                    <td colspan="4">He comes from Peking</td>
+                </tr>
+            </table>
+            <br>(Y.-Q. Zheng, 1996)`,
+            wangmo_bouyei_pp_info = `<b>Wàngmó Bouyei</b><br>
+            <table>
+                <tr>
+                    <td>wɯn2</td>
+                    <td>caːŋ1</td>
+                    <td>ˀbaːn6</td>
+                </tr>
+                <tr>
+                    <td>people</td>
+                    <td>middle.of</td>
+                    <td>village</td>
+                </tr>
+                <tr>
+                    <td colspan="3">people in the village </td>
+                </tr>
+            </table>
+            <br>(Boonsawasd, 2012)`,
+            be_pp_info = `<b>Be</b><br>
+            <table>
+                <tr>
+                    <td>hau2</td>
+                    <td>bi4</td>
+                    <td>mə2</td>
+                    <td>haŋ1</td>
+                </tr>
+                <tr>
+                    <td>1.sg</td>
+                    <td>PREP</td>
+                    <td>2.sg</td>
+                    <td>tall</td>
+                </tr>
+                <tr>
+                    <td colspan="4">I am taller than you</td>
+                </tr>
+            </table>
+            <br>(Liang and J.-R. Zhang, 1997)`,
+            zhanglu_kam_pp_info = `<b>Zhānglǔ Kam</b><br><br>(Long & G.-Q. Zheng, 1998)`,
+            shidong_kam_pp_info = `<b>Shídòng Kam</b><br><br>(Long & G.-Q. Zheng, 1998)`,
+            maonan_pp_info = `<b>Maonan</b><br>
+            <table>
+                <tr>
+                    <td>man2</td>
+                    <td>ˀnak7</td>
+                    <td>ʔai1fin1ˀdaːi2</td>
+                    <td>vɛ4</td>
+                    <td>hɔi5</td>
+                </tr>
+                <tr>
+                    <td>3.sg</td>
+                    <td>for</td>
+                    <td>rich.person</td>
+                    <td>make</td>
+                    <td>servant</td>
+                </tr>
+                <tr>
+                    <td colspan="5">He worked as a servant for a rich man.</td>
+                </tr>
+            </table>
+            <br>(Lu, 2008)`,
+            lakkja_pp_info = `<b>Lakkja</b><br>
+            <table>
+                <tr>
+                    <td>ou11</td>
+                    <td>tsiẽ51</td>
+                    <td>kɑ11</td>
+                    <td>phlɑ51</td>
+                </tr>
+                <tr>
+                    <td>inside</td>
+                    <td>river</td>
+                    <td>PART</td>
+                    <td>fish</td>
+                </tr>
+                <tr>
+                    <td colspan="4">fish in the river</td>
+                </tr>
+            </table>
+            <br>(Lan, 2011)`,
+            biao_pp_info = `<b>Biao</b><br>
+            <table>
+                <tr>
+                    <td>tau3</td>
+                    <td>man2</td>
+                    <td>θia5</td>
+                    <td>tshaːk9</td>
+                    <td>sy3</td>
+                </tr>
+                <tr>
+                    <td>PREP</td>
+                    <td>3sg</td>
+                    <td>borrow</td>
+                    <td>NUM+CLF</td>
+                    <td>book</td>
+                </tr>
+                <tr>
+                    <td colspan="5">borrow him a book</td>
+                </tr>
+            </table>
+            <br>(Liang and J.-R. Zhang, 2001)`,
+            hlai_pp_info = `<b>Hlai</b><br>
+            <table>
+                <tr>
+                    <td>na1</td>
+                    <td>pɯːn1</td>
+                    <td>toːŋ3</td>
+                    <td>ʔuːŋ2</td>
+                    <td>pai3tshuȶ7</td>
+                </tr>
+                <tr>
+                    <td>3sg</td>
+                    <td>come</td>
+                    <td>play</td>
+                    <td>PREP</td>
+                    <td>little.sister</td>
+                </tr>
+                <tr>
+                    <td colspan="5">She comes to play with my little sister</td>
+                </tr>
+            </table>
+            <br>(Ouyang & Y.-Q. Zheng, 1983)`,
+            zoulei_pp_info = `<b>Zoulei</b><br>
+            <table>
+                <tr>
+                    <td>?ləɯ55</td>
+                    <td>hau13</td>
+                    <td>ni33</td>
+                    <td>ɭəɯ33</td>
+                    <td>a33</td>
+                    <td>khru31</td>
+                </tr>
+                <tr>
+                    <td>in</td>
+                    <td>river</td>
+                    <td>PART</td>
+                    <td>fish</td>
+                    <td>good</td>
+                    <td>eat</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Fish (caught) from the river is delicious.</td>
+                </tr>
+            </table>
+            <br>(X. Li et al., 2014)`,
+            paha_pp_info = `<b>Paha</b><br>
+            <table>
+                <tr>
+                    <td>naak¹¹</td>
+                    <td>ŋa³¹</td>
+                    <td>ðaai³³</td>
+                </tr>
+                <tr>
+                    <td>by</td>
+                    <td>snake</td>
+                    <td>bite</td>
+                </tr>
+                <tr>
+                    <td colspan="3">got bitten by a snake</td>
+                </tr>
+            </table>
+            <br>(J.-F. Li & Y.-X. Luo, 2010)`,
+            longhaired_lachi_pp_info = `<b>Long-haired Lachi</b><br>
+            <table>
+                <tr>
+                    <td>khwi43</td>
+                    <td>nji0ɕu22</td>
+                    <td>ɕiɴ23</td>
+                    <td>kho43</td>
+                </tr>
+                <tr>
+                    <td>1.sg</td>
+                    <td>run</td>
+                    <td>back</td>
+                    <td>house</td>
+                </tr>
+                <tr>
+                    <td colspan="4">I ran back to the house.</td>
+                </tr>
+            </table>
+            <br>(Kosaka, 2000)`,
+            flowery_lachi_pp_info = `<b>Flowery Lachi</b><br>
+            <table>
+                <tr>
+                    <td>qhei44</td>
+                    <td>li44ʑi44</td>
+                    <td>mja35</td>
+                </tr>
+                <tr>
+                    <td>PREP</td>
+                    <td>inside</td>
+                    <td>village</td>
+                </tr>
+                <tr>
+                    <td colspan="3">In the village</td>
+                </tr>
+            </table>
+            <br>(Y.-B. Li, 2000)`,
+            langjia_buyang_pp_info = `<b>Lángjià Buyang</b><br>
+            <table>
+                <tr>
+                    <td>kaːi24</td>
+                    <td>ku54</td>
+                </tr>
+                <tr>
+                    <td>PREP</td>
+                    <td>1.sg</td>
+                </tr>
+                <tr>
+                    <td colspan="2">(taller) than me</td>
+                </tr>
+            </table>
+            <br>(J.-F. Li, 1999)`;
+        
+        var siamese_pp = L.shapeMarker([13.7525, 100.494167], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(siamese_pp_info),
+            lao_pp = L.shapeMarker([17.98, 102.63], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(lao_pp_info),
+            nung_fan_sling_pp = L.shapeMarker([21.56918103, 106.4781831], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(nung_fan_sling_pp_info),
+            jingxi_zhuang_pp = L.shapeMarker([23.14537851, 106.4116256], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(jingxi_zhuang_pp_info),
+            wangmo_bouyei_pp = L.shapeMarker([25.17846438, 106.099372], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(wangmo_bouyei_pp_info),
+            be_pp = L.shapeMarker([19.747022, 110.080959], {shape: 'square', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(be_pp_info),
+            zhanglu_kam_pp = L.shapeMarker([25.96965345, 108.53824], {shape: 'triangle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zhanglu_kam_pp_info),
+            shidong_kam_pp = L.shapeMarker([26.77979501, 109.0358971], {shape: 'triangle', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(shidong_kam_pp_info),
+            maonan_pp = L.shapeMarker([24.833333, 108.25], {shape: 'triangle', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(maonan_pp_info),
+            lakkja_pp = L.shapeMarker([24.40739883, 110.298179], {shape: 'triangle-down', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(lakkja_pp_info),
+            biao_pp = L.shapeMarker([23.65867011, 112.0701047], {shape: 'triangle-down', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(biao_pp_info),
+            hlai_pp = L.shapeMarker([19.10500024, 108.7064786], {shape: 'diamond', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(hlai_pp_info),
+            zoulei_pp = L.shapeMarker([26.14761928, 105.6114029], {shape: 'star', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(zoulei_pp_info),
+            paha_pp = L.shapeMarker([24.35154074, 104.9130283], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(paha_pp_info),
+            longhaired_lachi_pp = L.shapeMarker([22.79408216, 104.5822797], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(longhaired_lachi_pp_info),
+            flowery_lachi_pp = L.shapeMarker([22.77341847, 104.4611953], {shape: 'star', color:'#CB2B3E', radius: 6, fillOpacity: 1.0}).bindPopup(flowery_lachi_pp_info),
+            langjia_buyang_pp = L.shapeMarker([23.57427689, 106.012076], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(langjia_buyang_pp_info);
+
+        var pp = L.layerGroup([siamese_pp, lao_pp, nung_fan_sling_pp, jingxi_zhuang_pp, wangmo_bouyei_pp, be_pp, zhanglu_kam_pp, shidong_kam_pp, maonan_pp, lakkja_pp, biao_pp, hlai_pp, zoulei_pp, paha_pp, longhaired_lachi_pp, flowery_lachi_pp, langjia_buyang_pp]);
+
+        var siamese_v_info = `<b>Siamese</b><br>
+                    <table>
+                    <tr><td>chan5</td> <td>pai1</td> <td>roːŋ1rian1</td></tr>
+            <tr><td>1sg</td> <td>go</td> <td>school</td></tr>
+            <tr><td colspan="3">I'm going to school</td></tr>
+                    </table>
+                    <br>-`,
+            lao_v_info = `<b>Vientiene Lao</b><br>
+                    <table>
+                    <tr><td>haw2</td> <td>ʔaw3</td> <td>ŋen2</td> <td>haj5</td> <td>mɛʔ-thaw5</td></tr>
+            <tr><td>1.fa</td> <td>take</td> <td>money</td> <td>give</td> <td>mother-old</td></tr>
+            <tr><td colspan="5">I gave money to (my) mother-in-law.</td></tr>
+                    </table>
+                    <br>(Enfield, 2007)`,
+            nung_fan_sling_v_info = `<b>Nung Fan Sling</b><br>
+                    <table>
+                    <tr><td>cáu</td> <td>ca</td> <td>hẻht</td> <td>pau</td></tr>
+            <tr><td>I</td> <td>about</td> <td>make</td> <td>supper</td></tr>
+            <tr><td colspan="4">I'll make supper.</td></tr>
+                    </table>
+                    <br>(Saul & Wilson, 1980)`,
+            tiandeng_zhuang_v_info = `<b>Tiānděng Zhuang</b><br><br>(Langella, 2012)`,
+            jingxi_zhuang_v_info = `<b>Jìngxī Zhuang</b><br>
+                    <table>
+                    <tr><td>taːi5</td> <td>naŋ6</td> <td>jou5</td> <td>paːk9</td> <td>tou1</td> <td>ni5</td></tr>
+            <tr><td>grandmom</td> <td>sit</td> <td>PREP</td> <td>in.front.of</td> <td>the.door</td> <td>ptcl</td></tr>
+            <tr><td colspan="6">Grandmother is sitting in front of the door</td></tr>
+                    </table>
+                    <br>(Y.-Q. Zheng, 1996)`,
+            wangmo_bouyei_v_info = `<b>Wàngmó Bouyei</b><br>
+                    <table>
+                    <tr><td>te1</td> <td>ta:j1</td> <td>lew6</td></tr>
+            <tr><td>3.sg</td> <td>die</td> <td>already</td></tr>
+            <tr><td colspan="3">He died.</td></tr>
+                    </table>
+                    <br>(Boonsawasd, 2012)`,
+            be_v_info = `<b>Be</b><br>
+                    <table>
+                    <tr><td>kə2</td> <td>lɔu4</td> <td>da3</td> <td>lan2</td> <td>bɔi1</td></tr>
+            <tr><td>3.sg</td> <td>get</td> <td>in</td> <td>room</td> <td>go</td></tr>
+            <tr><td colspan="5">He walk into the room</td></tr>
+                    </table>
+                    <br>(Liang and J.-R. Zhang, 1997)`,
+            zhanglu_kam_v_info = `<b>Zhānglǔ Kam</b><br>
+                    <table>
+                    <tr><td>ʔai53</td> <td>jɐn55</td> <td>la31</td></tr>
+            <tr><td>cock</td> <td>crow</td> <td>STM</td></tr>
+            <tr><td colspan="3">The cock crowed.</td></tr>
+                    </table>
+                    <br>(Long & G.-Q. Zheng, 1998)`,
+            shidong_kam_v_info = `<b>Shídòng Kam</b><br>
+                    <table>
+                    <tr><td>mau44</td> <td>pai35</td> <td>lja31</td></tr>
+            <tr><td>3s</td> <td>go</td> <td>PAST</td></tr>
+            <tr><td colspan="3">He has gone.</td></tr>
+                    </table>
+                    <br>(Long & G.-Q. Zheng, 1998)`,
+            maonan_v_info = `<b>Maonan</b><br>
+                    <table>
+                    <tr><td>ɦe2</td> <td>puːŋ1</td> <td>man2</td></tr>
+            <tr><td>1.sg</td> <td>help</td> <td>3.sg</td></tr>
+            <tr><td colspan="3">I help him/her.</td></tr>
+                    </table>
+                    <br>(Lu, 2008)`,
+            lakkja_v_info = `<b>Lakkja</b><br>
+                    <table>
+                    <tr><td>tsi51</td> <td>hwɑ̃ːi51</td> <td>pɑi51</td></tr>
+            <tr><td>1sg</td> <td>NEG</td> <td>go</td></tr>
+            <tr><td colspan="3">I won't go.</td></tr>
+                    </table>
+                    <br>(Lan, 2011)`,
+            biao_v_info = `<b>Biao</b><br>
+                    <table>
+                    <tr><td>tsia1</td> <td>poi1</td> <td>hɔk8haːu6</td></tr>
+            <tr><td>1sg</td> <td>go</td> <td>school</td></tr>
+            <tr><td colspan="3">I go to school</td></tr>
+                    </table>
+                    <br>(Liang and J.-R. Zhang, 2001)`,
+            hlai_v_info = `<b>Hlai</b><br>
+                    <table>
+                    <tr><td>meɯ1</td> <td>khuːn2</td> <td>hei1</td> <td>peɯ1</td> <td>pa1</td></tr>
+            <tr><td>2.sg</td> <td>first</td> <td>back</td> <td>go</td> <td>ptcl</td></tr>
+            <tr><td colspan="5">You should go back first</td></tr>
+                    </table>
+                    <br>(Ouyang & Y.-Q. Zheng, 1983)`,
+            zoulei_v_info = `<b>Zoulei</b><br>
+                    <table>
+                    <tr><td>ve¹³</td> <td>əɯ³¹</td> <td>zəɯ¹³</td> <td>qəɯ³¹</td></tr>
+            <tr><td>3sg</td> <td>be</td> <td>person</td> <td>crop</td></tr>
+            <tr><td colspan="4">He is a farmer.</td></tr>
+                    </table>
+                    <br>(X. Li et al., 2014)`,
+            paha_v_info = `<b>Paha</b><br>
+                    <table>
+                    <tr><td>ku²⁴⁽³²²⁾</td> <td>ka⁵⁵⁽⁴⁵⁾</td> <td>ha³³</td> <td>pa³³ha³³</td></tr>
+            <tr><td>1sg</td> <td>be</td> <td>person</td> <td>Paha</td></tr>
+            <tr><td colspan="4">I am a Paha speaker</td></tr>
+                    </table>
+                    <br>(J.-F. Li & Y.-X. Luo, 2010)`,
+            longhaired_lachi_v_info = `<b>Long-haired Lachi</b><br>
+                    <table>
+                    <tr><td>kɛ43</td> <td>ko43</td> <td>phji23</td></tr>
+            <tr><td>3.sg</td> <td>eat</td> <td>supper</td></tr>
+            <tr><td colspan="3">He is having supper.</td></tr>
+                    </table>
+                    <br>(Kosaka, 2000)`,
+            flowery_lachi_v_info = `<b>Flowery Lachi</b><br>
+                    <table>
+                    <tr><td>ki55</td> <td>vu44</td> <td>tje44</td> <td>m55</td></tr>
+            <tr><td>1.sg</td> <td>go</td> <td>find</td> <td>you</td></tr>
+            <tr><td colspan="4">I am going to find you</td></tr>
+                    </table>
+                    <br>(Y.-B. Li, 2000)`,
+            langjia_buyang_v_info = `<b>Lángjià Buyang</b><br>
+                    <table>
+                    <tr><td>ku54</td> <td>kaːn54</td> <td>koi11</td></tr>
+            <tr><td>1.sg</td> <td>eat</td> <td>already</td></tr>
+            <tr><td colspan="3">I've already eaten (it)</td></tr>
+                    </table>
+                    <br>(J.-F. Li, 1999)`;
+
+        var siamese_v = L.shapeMarker([13.7525, 100.494167], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(siamese_v_info),
+            lao_v = L.shapeMarker([17.98, 102.63], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(lao_v_info),
+            nung_fan_sling_v = L.shapeMarker([21.56918103, 106.4781831], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(nung_fan_sling_v_info),
+            tiandeng_zhuang_v = L.shapeMarker([23.09357646, 107.1338332], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(tiandeng_zhuang_v_info),
+            jingxi_zhuang_v = L.shapeMarker([23.14537851, 106.4116256], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(jingxi_zhuang_v_info),
+            wangmo_bouyei_v = L.shapeMarker([25.17846438, 106.099372], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(wangmo_bouyei_v_info),
+            be_v = L.shapeMarker([19.747022, 110.080959], {shape: 'square', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(be_v_info),
+            zhanglu_kam_v = L.shapeMarker([25.96965345, 108.53824], {shape: 'triangle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zhanglu_kam_v_info),
+            shidong_kam_v = L.shapeMarker([26.77979501, 109.0358971], {shape: 'triangle', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(shidong_kam_v_info),
+            maonan_v = L.shapeMarker([24.833333, 108.25], {shape: 'triangle', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(maonan_v_info),
+            lakkja_v = L.shapeMarker([24.40739883, 110.298179], {shape: 'triangle-down', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(lakkja_v_info),
+            biao_v = L.shapeMarker([23.65867011, 112.0701047], {shape: 'triangle-down', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(biao_v_info),
+            hlai_v = L.shapeMarker([19.10500024, 108.7064786], {shape: 'diamond', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(hlai_v_info),
+            zoulei_v = L.shapeMarker([26.14761928, 105.6114029], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zoulei_v_info),
+            paha_v = L.shapeMarker([24.35154074, 104.9130283], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(paha_v_info),
+            longhaired_lachi_v = L.shapeMarker([22.79408216, 104.5822797], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(longhaired_lachi_v_info),
+            flowery_lachi_v = L.shapeMarker([22.77341847, 104.4611953], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(flowery_lachi_v_info),
+            langjia_buyang_v = L.shapeMarker([23.57427689, 106.012076], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(langjia_buyang_v_info);
+        
+        var v = L.layerGroup([siamese_v, lao_v, nung_fan_sling_v, tiandeng_zhuang_v, jingxi_zhuang_v, wangmo_bouyei_v, be_v, zhanglu_kam_v, shidong_kam_v, maonan_v, lakkja_v, biao_v, hlai_v, zoulei_v, paha_v, longhaired_lachi_v, flowery_lachi_v, langjia_buyang_v]);
+        
+        var siamese_det_info = `<b>Siamese</b><br>
+            <table>
+                <tr>
+                    <td>maː5</td>
+                    <td>tua1</td>
+                    <td>niː4</td>
+                </tr>
+                <tr>
+                    <td>dog</td>
+                    <td>CLF</td>
+                    <td>DEM</td>
+                </tr>
+                <tr>
+                    <td colspan="3">This dog</td>
+                </tr>
+            </table>
+            <br>-`,
+            lao_det_info = `<b>Vientiene Lao</b><br>
+            <table>
+                <tr>
+                    <td>ʔacaan3</td>
+                    <td>khon2</td>
+                    <td>nii˨</td>
+                </tr>
+                <tr>
+                    <td>teacher</td>
+                    <td>CLF</td>
+                    <td>this</td>
+                </tr>
+                <tr>
+                    <td colspan="3">this teacher </td>
+                </tr>
+            </table>
+            <br>(Enfield, 2007)`,
+            nung_fan_sling_det_info = `<b>Nung Fan Sling</b><br>
+            <table>
+                <tr>
+                    <td>tú</td>
+                    <td>má</td>
+                    <td>này</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>dog</td>
+                    <td>this</td>
+                </tr>
+                <tr>
+                    <td colspan="3">This dog</td>
+                </tr>
+            </table>
+            <br>(Saul & Wilson, 1980)`,
+            tiandeng_zhuang_det_info = `<b>Tiānděng Zhuang</b><br>
+            <table>
+                <tr>
+                    <td>cok5</td>
+                    <td>ni1</td>
+                    <td>θa:w6</td>
+                    <td>ja5-caŋ1</td>
+                </tr>
+                <tr>
+                    <td>glass</td>
+                    <td>DEM</td>
+                    <td>wash</td>
+                    <td>PFV-NOT.YET</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Have these glasses been washed yet?</td>
+                </tr>
+            </table>
+            <br>(Langella, 2012)`,
+            jingxi_zhuang_det_info = `<b>Jìngxī Zhuang</b><br>
+            <table>
+                <tr>
+                    <td>kou6</td>
+                    <td>jaːi1</td>
+                    <td>kei5</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>shoes</td>
+                    <td>DET</td>
+                </tr>
+                <tr>
+                    <td colspan="3">These shoes</td>
+                </tr>
+            </table>
+            <br>(Y.-Q. Zheng, 1996)`,
+            wangmo_bouyei_det_info = `<b>Wàngmó Bouyei</b><br>
+            <table>
+                <tr>
+                    <td>yuaŋ2ˀbe6</td>
+                    <td>ni6</td>
+                </tr>
+                <tr>
+                    <td>goat</td>
+                    <td>this</td>
+                </tr>
+                <tr>
+                    <td colspan="2">This goat</td>
+                </tr>
+            </table>
+            <br>(Boonsawasd, 2012)`,
+            be_det_info = `<b>Be</b><br>
+            <table>
+                <tr>
+                    <td>pou4</td>
+                    <td>han4</td>
+                </tr>
+                <tr>
+                    <td>person</td>
+                    <td>DET</td>
+                </tr>
+                <tr>
+                    <td colspan="2">that person</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td>nə2hə4</td>
+                    <td>tsiʔ8</td>
+                </tr>
+                <tr>
+                    <td>DET</td>
+                    <td>place</td>
+                </tr>
+                <tr>
+                    <td colspan="2">This way</td>
+                </tr>
+            </table>
+            <br>(Liang and J.-R. Zhang, 1997)`,
+            zhanglu_kam_det_info = `<b>Zhānglǔ Kam</b><br>
+            <table>
+                <tr>
+                    <td>nɐn55</td>
+                    <td>mɐi31</td>
+                    <td>ȶa33</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>wood</td>
+                    <td>that</td>
+                </tr>
+                <tr>
+                    <td colspan="3">that log</td>
+                </tr>
+            </table>
+            <br>(Long & G.-Q. Zheng, 1998)`,
+            shidong_kam_det_info = `<b>Shídòng Kam</b><br>
+            <table>
+                <tr>
+                    <td>nən35</td>
+                    <td>ŋu11</td>
+                    <td>ka55</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>green</td>
+                    <td>that</td>
+                </tr>
+                <tr>
+                    <td colspan="3">that green one</td>
+                </tr>
+            </table>
+            <br>(Long & G.-Q. Zheng, 1998)`,
+            maonan_det_info = `<b>Maonan</b><br>
+            <table>
+                <tr>
+                    <td>dɔ2</td>
+                    <td>mu5</td>
+                    <td>naːi5</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>pig</td>
+                    <td>this</td>
+                </tr>
+                <tr>
+                    <td colspan="3">This pig</td>
+                </tr>
+            </table>
+            <br>(Lu, 2008)`,
+            lakkja_det_info = `<b>Lakkja</b><br>
+            <table>
+                <tr>
+                    <td>lɑk11</td>
+                    <td>nu231</td>
+                </tr>
+                <tr>
+                    <td>person</td>
+                    <td>that</td>
+                </tr>
+                <tr>
+                    <td colspan="2">that person</td>
+                </tr>
+            </table>
+            <br>(Lan, 2011)`,
+            biao_det_info = `<b>Biao</b><br>
+            <table>
+                <tr>
+                    <td>naːi1</td>
+                    <td>tsu2</td>
+                    <td>lan2</td>
+                </tr>
+                <tr>
+                    <td>DET</td>
+                    <td>CLF</td>
+                    <td>person</td>
+                </tr>
+                <tr>
+                    <td colspan="3">This person</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td>kam2</td>
+                    <td>ŋan2</td>
+                    <td>mɔ5</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>money</td>
+                    <td>DET</td>
+                </tr>
+                <tr>
+                    <td colspan="3">Those money</td>
+                </tr>
+            </table>
+            <br>(Liang and J.-R. Zhang, 2001)`,
+            hlai_det_info = `<b>Hlai</b><br>
+            <table>
+                <tr>
+                    <td>veːŋ3</td>
+                    <td>nei2</td>
+                    <td>paːn1</td>
+                </tr>
+                <tr>
+                    <td>top.clothes</td>
+                    <td>DET</td>
+                    <td>new</td>
+                </tr>
+                <tr>
+                    <td colspan="3">This new top clothes</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td>nei2</td>
+                    <td>veːŋ3</td>
+                    <td>paːn1</td>
+                </tr>
+                <tr>
+                    <td>DET</td>
+                    <td>top.clothes</td>
+                    <td>new</td>
+                </tr>
+                <tr>
+                    <td colspan="3">This new top clothes</td>
+                </tr>
+            </table>
+            <br>(Ouyang & Y.-Q. Zheng, 1983)`,
+            zoulei_det_info = `<b>Zoulei</b><br>
+            <table>
+                <tr>
+                    <td>ha³³</td>
+                    <td>məɯ³¹</td>
+                    <td>na¹³</td>
+                    <td>a³³</td>
+                </tr>
+                <tr>
+                    <td>house</td>
+                    <td>2sg</td>
+                    <td>this</td>
+                    <td>good</td>
+                </tr>
+                <tr>
+                    <td colspan="4">This house of yours is good.</td>
+                </tr>
+            </table>
+            <br>(X. Li et al., 2014)`,
+            paha_det_info = `<b>Paha</b><br>
+            <table>
+                <tr>
+                    <td>du³¹⁽³²²⁾</td>
+                    <td>ni⁵⁵</td>
+                    <td>pɯŋ³³⁽⁵⁵⁾</td>
+                    <td>dɯ³³</td>
+                    <td>man³¹</td>
+                    <td>wa²⁴</td>
+                </tr>
+                <tr>
+                    <td>way</td>
+                    <td>this</td>
+                    <td>then</td>
+                    <td>get</td>
+                    <td>flee</td>
+                    <td>go</td>
+                </tr>
+                <tr>
+                    <td colspan="6">This (is) the escape route.</td>
+                </tr>
+            </table>
+            <br>(J.-F. Li & Y.-X. Luo, 2010)`,
+            longhaired_lachi_det_info = `<b>Long-haired Lachi</b><br>
+            <table>
+                <tr>
+                    <td>mja23</td>
+                    <td>nji22</td>
+                </tr>
+                <tr>
+                    <td>hamlet</td>
+                    <td>this</td>
+                </tr>
+                <tr>
+                    <td colspan="2">This hamlet</td>
+                </tr>
+            </table>
+            <br>(Kosaka, 2000)`,
+            flowery_lachi_det_info = `<b>Flowery Lachi</b><br>
+            <table>
+                <tr>
+                    <td>tje55</td>
+                    <td>kin55</td>
+                    <td>a44fu44</td>
+                    <td>vei44</td>
+                </tr>
+                <tr>
+                    <td>three</td>
+                    <td>CLF</td>
+                    <td>people</td>
+                    <td>that</td>
+                </tr>
+                <tr>
+                    <td colspan="4">That three people</td>
+                </tr>
+            </table>
+            <br>(Y.-B. Li, 2000)`,
+            langjia_buyang_det_info = `<b>Lángjià Buyang</b><br>
+            <table>
+                <tr>
+                    <td>vaːi312</td>
+                    <td>ma0iŋ31</td>
+                    <td>ni11</td>
+                </tr>
+                <tr>
+                    <td>CLF</td>
+                    <td>person</td>
+                    <td>this</td>
+                </tr>
+                <tr>
+                    <td colspan="3">This person</td>
+                </tr>
+            </table>
+            <br>(J.-F. Li, 1999)`;
+
+        var siamese_det = L.shapeMarker([13.7525, 100.494167], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(siamese_det_info),
+            lao_det = L.shapeMarker([17.98, 102.63], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(lao_det_info),
+            nung_fan_sling_det = L.shapeMarker([21.56918103, 106.4781831], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(nung_fan_sling_det_info),
+            tiandeng_zhuang_det = L.shapeMarker([23.09357646, 107.1338332], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(tiandeng_zhuang_det_info),
+            jingxi_zhuang_det = L.shapeMarker([23.14537851, 106.4116256], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(jingxi_zhuang_det_info),
+            wangmo_bouyei_det = L.shapeMarker([25.17846438, 106.099372], {shape: 'circle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(wangmo_bouyei_det_info),
+            be_det = L.shapeMarker([19.747022, 110.080959], {shape: 'square', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(be_det_info),
+            zhanglu_kam_det = L.shapeMarker([25.96965345, 108.53824], {shape: 'triangle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zhanglu_kam_det_info),
+            shidong_kam_det = L.shapeMarker([26.77979501, 109.0358971], {shape: 'triangle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(shidong_kam_det_info),
+            maonan_det = L.shapeMarker([24.833333, 108.25], {shape: 'triangle', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(maonan_det_info),
+            lakkja_det = L.shapeMarker([24.40739883, 110.298179], {shape: 'triangle-down', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(lakkja_det_info),
+            biao_det = L.shapeMarker([23.65867011, 112.0701047], {shape: 'triangle-down', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(biao_det_info),
+            hlai_det = L.shapeMarker([19.10500024, 108.7064786], {shape: 'diamond', color:'#9C2BCB', radius: 6, fillOpacity: 1.0}).bindPopup(hlai_det_info),
+            zoulei_det = L.shapeMarker([26.14761928, 105.6114029], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(zoulei_det_info),
+            paha_det = L.shapeMarker([24.35154074, 104.9130283], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(paha_det_info),
+            longhaired_lachi_det = L.shapeMarker([22.79408216, 104.5822797], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(longhaired_lachi_det_info),
+            flowery_lachi_det = L.shapeMarker([22.77341847, 104.4611953], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(flowery_lachi_det_info),
+            langjia_buyang_det = L.shapeMarker([23.57427689, 106.012076], {shape: 'star', color:'#2A81CB', radius: 6, fillOpacity: 1.0}).bindPopup(langjia_buyang_det_info);
+        
+        var det = L.layerGroup([siamese_det, lao_det, nung_fan_sling_det, tiandeng_zhuang_det, jingxi_zhuang_det, wangmo_bouyei_det, be_det, zhanglu_kam_det, shidong_kam_det, maonan_det, lakkja_det, biao_det, hlai_det, zoulei_det, paha_det, longhaired_lachi_det, flowery_lachi_det, langjia_buyang_det]);
+
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             });
 
+        var maptilertopo = L.tileLayer('https://api.maptiler.com/maps/topo-v2/{z}/{x}/{y}.png?key=cTiwwZG4ajvW1m48G7l9',
+            {
+                maxZoom: 19,
+                attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+            });
+
+        var baseMaps = {
+            "MaptilerTopoMap": maptilertopo,
+            "OpenStreetMap": osm
+        };
+        var overlayMaps = {
+            "POSS": poss,
+            "REL": rel,
+            "PP": pp,
+            "V": v,
+            "DET": det
+        };
+
         var map = L.map('map', {
             center: [16.573382631421403, 104.76828497725555],
             zoom: 5,
-            layers: [tiles, langs]
+            layers: [maptilertopo, poss]
         });
 
-        var overlayMaps = {
-            "Languages": langs
-        };
-        var layerControl = L.control.layers(overlayMaps).addTo(map);
+        var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
 
         //    var marker = L.shapeMarker([39.73, -104.99], {shape: "circle", radius: 8, fillOpacity: 0.75}).addTo(map);
 
