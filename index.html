@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="./dist/leaflet-svg-shape-markers.min.js"></script>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Kra-Dai Modifier Order Map</title>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <script>
+        var siamese_dummy_info = "<b>Siamese</b>",
+            lao_dummy_info = "<b>Vientiene Lao</b>",
+            khamti_shan_dummy_info = "<b>Khamti Shan</b>",
+            nung_fan_sling_dummy_info = "<b>Nung Fan Sling</b>",
+            tiandeng_zhuang_dummy_info = "<b>Tiānděng Zhuang</b>",
+            jingxi_zhuang_dummy_info = "<b>Jìngxī Zhuang</b>",
+            wangmo_bouyei_dummy_info = "<b>Wàngmó Bouyei</b>",
+            be_dummy_info = "<b>Be</b>",
+            zhanglu_kam_dummy_info = "<b>Zhānglǔ Kam</b>",
+            shidong_kam_dummy_info = "<b> Shídòng Kam</b>",
+            maonan_dummy_info = "<b>Maonan</b>",
+            lakkja_dummy_info = "<b>Lakkja</b>",
+            biao_dummy_info = "<b>Biao</b>",
+            hlai_dummy_info = "<b>Hlai</b>",
+            zoulei_dummy_info = "<b>Zoulei</b>",
+            paha_dummy_info = "<b>Paha</b>",
+            longhaired_lachi_dummy_info = "<b>Long-haired Lachi</b>",
+            langjia_buyang_dummy_info = "<b>Lángjià Buyang</b>";
+
+        var siamese_dummy = L.shapeMarker([13.7525, 100.494167], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(siamese_dummy_info),
+            lao_dummy = L.shapeMarker([17.98, 102.63], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(lao_dummy_info),
+            khamti_shan_dummy = L.shapeMarker([26.996389, 93.896944], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(khamti_shan_dummy_info),
+            nung_fan_sling_dummy = L.shapeMarker([21.56918103, 106.4781831], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(nung_fan_sling_dummy_info),
+            tiandeng_zhuang_dummy = L.shapeMarker([23.09357646, 107.1338332], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(tiandeng_zhuang_dummy_info),
+            jingxi_zhuang_dummy = L.shapeMarker([23.14537851, 106.4116256], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(jingxi_zhuang_dummy_info),
+            wangmo_bouyei_dummy = L.shapeMarker([25.17846438, 106.099372], {shape: 'circle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(wangmo_bouyei_dummy_info),
+            be_dummy = L.shapeMarker([19.747022, 110.080959], {shape: 'square', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(be_dummy_info),
+            zhanglu_kam_dummy = L.shapeMarker([25.96965345, 108.53824], {shape: 'triangle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(zhanglu_kam_dummy_info),
+            shidong_kam_dummy = L.shapeMarker([26.77979501, 109.0358971], {shape: 'triangle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(shidong_kam_dummy_info),
+            maonan_dummy = L.shapeMarker([24.833333, 108.25], {shape: 'triangle', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(maonan_dummy_info),
+            lakkja_dummy = L.shapeMarker([24.40739883, 110.298179], {shape: 'triangle-down', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(lakkja_dummy_info),
+            biao_dummy = L.shapeMarker([23.65867011, 112.0701047], {shape: 'triangle-down', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(biao_dummy_info),
+            hlai_dummy = L.shapeMarker([19.10500024, 108.7064786], {shape: 'diamond', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(hlai_dummy_info),
+            zoulei_dummy = L.shapeMarker([26.14761928, 105.6114029], {shape: 'star', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(zoulei_dummy_info),
+            paha_dummy = L.shapeMarker([24.35154074, 104.9130283], {shape: 'star', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(paha_dummy_info),
+            longhaired_lachi_dummy = L.shapeMarker([22.79408216, 104.5822797], {shape: 'star', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(longhaired_lachi_dummy_info),
+            langjia_buyang_dummy = L.shapeMarker([23.57427689, 106.012076], {shape: 'star', color:'#2A81CB', radius: 5, fillOpacity: 1.0}).bindPopup(langjia_buyang_dummy_info);
+
+        var langs = L.layerGroup([siamese_dummy, lao_dummy, khamti_shan_dummy, nung_fan_sling_dummy, tiandeng_zhuang_dummy, jingxi_zhuang_dummy, wangmo_bouyei_dummy, be_dummy, zhanglu_kam_dummy, shidong_kam_dummy, maonan_dummy, lakkja_dummy, biao_dummy, hlai_dummy, zoulei_dummy, paha_dummy, longhaired_lachi_dummy, langjia_buyang_dummy]);
+
+        var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            });
+
+        var map = L.map('map', {
+            center: [16.573382631421403, 104.76828497725555],
+            zoom: 5,
+            layers: [tiles, langs]
+        });
+
+        var overlayMaps = {
+            "Languages": langs
+        };
+        var layerControl = L.control.layers(overlayMaps).addTo(map);
+
+        //    var marker = L.shapeMarker([39.73, -104.99], {shape: "circle", radius: 8, fillOpacity: 0.75}).addTo(map);
+
+    </script>
+</body>
+
+</html>
